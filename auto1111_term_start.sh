@@ -37,10 +37,10 @@ spawnTabs(){
 gnome-terminal --tab --title="Auto 1111 port forward" -- bash -c "ssh -N -L $remote_a1111_port:127.0.0.1:$local_a1111_port -o StrictHostKeyChecking=$StrictHostKeyCheckValue $ssh_user@$ip -i $identityFilePath; read -p 'Press Enter to close this window...'"
 
 # Open the terminal that will be used to run the auto1111.sh script
-gnome-terminal --tab --title="Auto 1111" -- bash -c "ssh $ssh_user@$ip -t -o StrictHostKeyChecking=$StrictHostKeyCheckValue -i $identityFilePath 'cd auto1111/ && ./preload.sh; read -p \"Press Enter to close this window...\"'"
+#gnome-terminal --tab --title="Auto 1111" -- bash -c "ssh $ssh_user@$ip -t -o StrictHostKeyChecking=$StrictHostKeyCheckValue -i $identityFilePath 'cd auto1111/ && ./preload.sh; read -p \"Press Enter to close this window...\"'"
 
 # Open the terminal for monitoring resource usage with htop
-gnome-terminal --tab --title="Resource Monitor" -- bash -c "ssh $ssh_user@$ip -t -o StrictHostKeyChecking=$StrictHostKeyCheckValue -i $identityFilePath 'sudo ./makeswap.sh && htop; read -p \"Press Enter to close this window...\"'" # -t is used to force a pseudo-terminal allocation so that htop can run automatically makeswap uses the ephemeral storage as swap space
+gnome-terminal --tab --title="Resource Monitor" -- bash -c "ssh $ssh_user@$ip -t -o StrictHostKeyChecking=$StrictHostKeyCheckValue -i $identityFilePath ' htop; read -p \"Press Enter to close this window...\"'" # -t is used to force a pseudo-terminal allocation so that htop can run automatically makeswap uses the ephemeral storage as swap space
 
 # Open the remote shell terminal
 gnome-terminal --tab --title="Remote Shell" -- bash -c "ssh $ssh_user@$ip -t -o StrictHostKeyChecking=$StrictHostKeyCheckValue -i $identityFilePath; read -p 'Press Enter to close this window...'"
