@@ -5,6 +5,9 @@
 
 # Function to prompt for IP address if not provided as an argument
 ssh_user=ubuntu
+remote_a1111_port=7860
+local_a1111_port=7860
+
 getIp() {
     if [ -z "$ip" ]; then
         read -p "Enter the IP of the EC2 machine: " ip
@@ -29,11 +32,11 @@ getIdentityFilePath() {
 # Function to spawn tabs
 spawnTabs(){
     # Setup port forwarding for the auto1111 default port
-    gnome-terminal --tab --title="Auto 1111 port forward" --command="bash -c 'ssh -N -L 7860:127.0.0.1:7860 $ssh_user@$ip -i $identityFilePath; '"
+    gnome-terminal --tab --title="Auto 1111 port forward" --command="bash -c 'ssh -N -L $remote_a1111_port:127.0.0.1:$local_a1111_port $ssh_user@$ip -i $identityFilePath; '"
     # Open the terminal that will be used to run the auto1111.sh script
-    gnome-terminal --tab --title="Auto 1111" --command="bash -c 'ssh $ssh_user@$ip -i $identityFilePath; '"
+    gnome-terminal --tab --title="Auto 1111" --command="bash -c 'ssh $ssh_user@$ip -i $identityFilePath '"
     # Open the terminal for monitoring resource usage with htop
-    gnome-terminal --tab --title="Resource Monitor" --command="bash -c 'ssh $ssh_user@$ip -i $identityFilePath; '"
+    gnome-terminal --tab --title="Resource Monitor" --command="bash -c 'ssh $ssh_user@$ip -t -i $identityFilePath htop '" # -t is used to force a pseudo-terminal allocation so that htop can run automatically
 }
 
 # Check for arguments
